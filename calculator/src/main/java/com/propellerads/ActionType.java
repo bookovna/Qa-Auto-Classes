@@ -3,7 +3,8 @@ package main.java.com.propellerads;
 public enum ActionType {
     Minus("Вычитание"),
     Summ("Сложение"),
-    Multiple("Умножение");
+    Multiple("Умножение"),
+    Divide("Деление");
 
     private String typename;
 

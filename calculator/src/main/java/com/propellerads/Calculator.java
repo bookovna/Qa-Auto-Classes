@@ -1,8 +1,8 @@
 package main.java.com.propellerads;
 
+import main.java.com.propellerads.impl.DivideAction;
 import main.java.com.propellerads.impl.MinusAction;
 import main.java.com.propellerads.impl.MultipleAction;
-import main.java.com.propellerads.impl.NoFartException;
 import main.java.com.propellerads.impl.SummAction;
 
 import javax.swing.*;
@@ -15,7 +15,9 @@ public class Calculator {
     List<Action> actionsList = Arrays.asList(
             new MinusAction(),
             new SummAction(),
-            new MultipleAction());
+            new MultipleAction(),
+            new DivideAction()
+    );
 
 
     public void start() {
@@ -39,7 +41,19 @@ public class Calculator {
         int result = 0;
         for (Action action : actionsList) {
             if (selectedAction.equals(action.getActionType())) {
-                result = action.invoke(firstArgument, secondArgument);
+                try {
+                    result = action.invoke(firstArgument, secondArgument);
+                } catch (IllegalInputDataException e) {
+
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "С указанными числами операция невозможна по причине:\n " + e.getMessage(),
+                            "Ошибка",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                    return;
+
+                }
             }
         }
         JOptionPane.showMessageDialog(
